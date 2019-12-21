@@ -1,0 +1,16 @@
+{
+  "name": "scrapertutorial",
+  "version": "1.0.0",
+  "description": "",
+  "main": "scraper.js",
+  "scripts": {
+    "debug": "nodemon start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "puppeteer": "^2.0.0",
+    "sqlite3": "^4.1.1"
+  }
+}
