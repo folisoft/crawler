@@ -1,4 +1,13 @@
 #   Crawler
+    We crawl the product by url https://www.nike.com/w?q=AT6174-005
+    And check the product on the url http://oco.vn/san-pham?q=AT6174-102
+
+    This is the list of SKU for testing:
+    13	AT6174-005	NIKE AIR MAX 270 REACT	Women	4,449,000	Stocking	
+    14	AT6174-100	NIKE AIR MAX 270 REACT	Women	4,199,000	Stocking	
+    15	AT6174-102	NIKE AIR MAX 270 REACT	Women	4,199,000	Stocking	
+    16	AT6174-700	NIKE AIR MAX 270 REACT	Women	4,199,000	Stocking
+
 
 #   Requirement from Ly
     nike.com
