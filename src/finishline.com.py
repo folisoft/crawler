@@ -10,7 +10,7 @@ async def main():
     page = await browser.newPage()
 
     await page.goto(_finishline_url, { 'timeout': 80000, 'waitUntil': 'domcontentloaded' })
-    # document.querySelectorAll('.original-price')[0].innerText
+
     product_sizes = await page.querySelectorAll(_finishline_product_class)
     f = open("output-finishline.com.json", "w")
     f.write("[")
