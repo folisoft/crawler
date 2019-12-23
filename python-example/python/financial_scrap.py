@@ -1,4 +1,4 @@
-from requests_html import HTML, AsyncHTMLSession
+from requests_html import AsyncHTMLSession
 import csv
 import time, datetime
 import sqlite3
