@@ -3,8 +3,8 @@ import json
 from pyppeteer import launch
 
 _adidas_url = 'https://www.adidas.com/us/ultraboost-19-shoes/G27511.html'
-_adidas_product_class = '.square-list ul li button'
-_adidas_dropdown_class = 'gl-custom-dropdown__select'
+_adidas_product_class = '.gl-custom-dropdown--no-max-height > select > option'
+_adidas_button_class = '.gl-custom-dropdown--no-max-height > button'
 
 async def main():
     browser = await launch({'headless': False})
@@ -12,11 +12,10 @@ async def main():
 
     # set timeout vi mang yeu
     await page.goto(_adidas_url, {'timeout': 80000, 'waitUntil': 'domcontentloaded'})
-    if await page.J('.gl-modal__main-content'):
-        await page.click('div > div > a')
-    await page.click('.gl-custom-dropdown__select')
+    if await page.J('#modal-root .gl-modal'):
+        await page.click('button')
 
-    product_sizes = await page.querySelectorAll(_adidas_product_class)
+    product_sizes = await page.querySelectorAll('.gl-custom-dropdown--no-max-height select option')
     f = open("output-adidas.com.json", "w")
     f.write("[")
     for size in product_sizes:
