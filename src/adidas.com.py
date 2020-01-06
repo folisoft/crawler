@@ -10,32 +10,49 @@ _adidas_button_class = '.gl-custom-dropdown--no-max-height > button'
 async def main():
     browser = await launch({'headless': False})
     page = await browser.newPage()
-    
+    await page.setViewport({'width': 1600, 'height': 1300})
     await page.setUserAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64)\
                                 AppleWebKit/537.36 (KHTML, like Gecko) \
                                 Chrome/66.0.3359.181 Safari/537.36")
     await page.goto(_adidas_url, {'timeout': 0})
 
+    default_men_sizes = ["4", "4.5", "5", "5.5", "6", "6.5", "7", "7.5", "8", "8.5", "9", "9.5", "10",
+                         "10.5", "11", "11.5", "12", "12.5", "13", "13.5", "14", "14.5", "15", "16", "17", "18", "19"]
+    default_women_sizes = ["5", "5.5", "6", "6.5", "7", "7.5", "8", "8.5", "9", "9.5",
+                           "10", "10.5", "11", "11.5", "12", "12.5", "13", "13.5", "14", "14.5", "15", "15.5"]
+
     data_crawler = {}
     sizes = []
+    final_sizes = []
 
-    # product_sizes = await page.querySelectorAll('.gl-custom-dropdown--no-max-height select option')
+    breadcrumb_query = "Array.from(document.querySelectorAll('.pdp_breadcrumb_container ol li span')).map(item => item.textContent);"
+    breadcrumbs = await page.evaluate(breadcrumb_query, force_expr=True)
+    gender = breadcrumbs[3]
 
-
-    # await page.waitForSelector('.square-list ul li', {'timeout': 0})
-    # product_sizes = await page.querySelectorAll('.square-list ul li')
     query = "Array.from(document.querySelectorAll('.square-list ul li')).map(item => item.title);"
     product_sizes = await page.evaluate(query, force_expr=True)
 
+    if(gender == 'Men'):
+        sizes = default_men_sizes
+    else:
+        sizes = default_women_sizes
+
+    data_crawler['Gender'] = gender
+
     f = open("output-adidas.com.json", "w")
-    # for size in product_sizes:
-    #     itemSize = await page.evaluate('(element) => element.title', size)
-    #     dataItem = {}
-    #     dataItem['size'] = itemSize
-    #     dataItem['quantity'] = 3
-    #     sizes.append(dataItem)
-    # data_crawler["sizes"] = sizes
-    # f.write(json.dumps(data_crawler))
+
+    for df_size in sizes:
+        dataItem = {}
+        dataItem['size'] = df_size
+        index = product_sizes.count(df_size)
+        if(index > 0):
+            dataItem['quantity'] = 3
+        else:
+            dataItem['quantity'] = 0
+        final_sizes.append(dataItem)
+
+    data_crawler["sizes"] = final_sizes
+    f.write(json.dumps(data_crawler))
     f.close()
 
     await browser.close()

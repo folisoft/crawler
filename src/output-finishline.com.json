@@ -1,1 +1,17 @@
-{ "name": "Women's adidas NMD R1 Casual Shoes", "gender": "Women", "sizes": [{ "size": "5.5", "quantity": 0 }, { "size": "6.0", "quantity": 0 }, { "size": "6.5", "quantity": 0 }, { "size": "7.0", "quantity": 0 }, { "size": "7.5", "quantity": 0 }, { "size": "8.0", "quantity": 0 }, { "size": "8.5", "quantity": 0 }, { "size": "9.0", "quantity": 0 }, { "size": "9.5", "quantity": 0 }, { "size": "10.0", "quantity": 3 }, { "size": "11.0", "quantity": 0 }] }
+{
+  "name": "Women's adidas NMD R1 Casual Shoes",
+  "gender": "Women",
+  "sizes": [
+    { "size": "5.5", "quantity": 0 },
+    { "size": "6.0", "quantity": 0 },
+    { "size": "6.5", "quantity": 0 },
+    { "size": "7.0", "quantity": 0 },
+    { "size": "7.5", "quantity": 0 },
+    { "size": "8.0", "quantity": 0 },
+    { "size": "8.5", "quantity": 0 },
+    { "size": "9.0", "quantity": 0 },
+    { "size": "9.5", "quantity": 0 },
+    { "size": "10.0", "quantity": 3 },
+    { "size": "11.0", "quantity": 0 }
+  ]
+}
