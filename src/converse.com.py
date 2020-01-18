@@ -1,35 +1,56 @@
 import asyncio
+import json
 from pyppeteer import launch
 
-#   Crawler
-    # We crawl the product by url https://www.nike.com/w?q=AT6174-005
-    # And check the product on the url http://oco.vn/san-pham?q=AT6174-005
-
-    # This is the list of SKU for testing:
-    # 13	AT6174-005	NIKE AIR MAX 270 REACT	Women	4,449,000	Stocking	
-    # 14	AT6174-100	NIKE AIR MAX 270 REACT	Women	4,199,000	Stocking	
-    # 15	AT6174-102	NIKE AIR MAX 270 REACT	Women	4,199,000	Stocking	
-    # 16	AT6174-700	NIKE AIR MAX 270 REACT	Women	4,199,000	Stocking
-
-_nike_url = 'https://www.nike.com/w?q=AT6174-005'
-_nike_product_class = '.product-card__body'
-_nike_product_price = '.original-price'
+_converse_url = 'https://www.converse.com/shop/p/chuck-taylor-all-star-unisex-lowtopshoe/M7652.html?cgid=mens-best-sellers&dwvar_M7652_color=optical%20white&dwvar_M7652_size=065&styleNo=M7652&pdp=true'
+_converse_products_class = '#variationDropdown-size option'
 
 
 async def main():
     browser = await launch({'headless': False})
     page = await browser.newPage()
+    await page.setViewport({'width': 1600, 'height': 1300})
+    await page.setUserAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64)\
+                                AppleWebKit/537.36 (KHTML, like Gecko) \
+                                Chrome/66.0.3359.181 Safari/537.36")
+    await page.goto(_converse_url, {'timeout': 0})
 
-    await page.goto(_nike_url)
-    
-    # document.querySelectorAll('.product-card__body')[0]
-    product_el = await page.querySelector(_nike_product_class)
-    await page.click(_nike_product_class)
+    data_crawler = {}
+    final_sizes = []
+    gender = ""
+    Men = "Men"
+    Women = "Women"
 
-    # document.querySelectorAll('.original-price')[0].innerText
-    product_el_price = await page.querySelector(_nike_product_price)
-    product_price = await page.evaluate('(element) => element.textContent', product_el_price)
-    
+    query = "Array.from(document.querySelectorAll('" + _converse_products_class + "')).map(item => item.textContent.trim());"
+    product_sizes_raw = await page.evaluate(query, force_expr=True)
+    product_sizes = []
+    for value in product_sizes_raw:
+        product_sizes.append(value)
+
+    exist_men = True if Men in product_sizes[1] else False
+    exist_women = True if Women in product_sizes[1] else False
+
+    # GENDER
+    if(exist_men):
+        gender = Men
+    if(exist_women):
+        gender = Women
+    data_crawler["Gender"] = gender
+
+    # SIZES
+    for size in product_sizes:
+        if(Men in size or Women in size):
+            dataItem = {}
+            size_number = size.split(' ')
+            dataItem['size'] = size_number[1]
+            dataItem['quantity'] = 3
+            final_sizes.append(dataItem)
+
+    data_crawler["sizes"] = final_sizes
+    f = open("output-converse.com.json", "w")
+    f.write(json.dumps(data_crawler))
+    f.close()
+
     await browser.close()
 
 asyncio.get_event_loop().run_until_complete(main())
