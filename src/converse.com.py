@@ -47,6 +47,8 @@ async def main():
             final_sizes.append(dataItem)
 
     data_crawler["sizes"] = final_sizes
+
+    # WRITE TO FILE
     f = open("output-converse.com.json", "w")
     f.write(json.dumps(data_crawler))
     f.close()

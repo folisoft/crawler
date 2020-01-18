@@ -9,38 +9,44 @@ _breadcrumbs_class = '.breadcrumbs li a span'
 
 _shoes_name_class = '#title'
 
+
 async def main():
     browser = await launch({'headless': False})
     page = await browser.newPage()
-
-    await page.goto(_finishline_url, { 'timeout': 80000, 'waitUntil': 'domcontentloaded' }) #set timeout vi mang yeu
+    await page.setViewport({'width': 1600, 'height': 1300})
+    await page.setUserAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64)\
+                                AppleWebKit/537.36 (KHTML, like Gecko) \
+                                Chrome/66.0.3359.181 Safari/537.36")
+    await page.goto(_finishline_url, {'timeout': 0})
 
     data_crawler = {}
     sizes = []
-    # NAME OF SHOES
-    shoesnames = await page.querySelector(_shoes_name_class)
-    shoesname = await page.evaluate('(element) => element.textContent', shoesnames)
-    data_crawler["name"] = shoesname.strip()
 
     # GENDER
-    breadcrumbs = await page.querySelectorAll(_breadcrumbs_class)
-    gender_object = await page.evaluate('(element) => element.textContent', breadcrumbs[1])
+    breadcrumb_query = "Array.from(document.querySelectorAll('"+_breadcrumbs_class+"')).map(item => item.textContent);"
+    breadcrumbs = await page.evaluate(breadcrumb_query, force_expr=True)
+    gender_object = breadcrumbs[1]
     data_crawler["gender"] = gender_object.strip()
 
-    f = open("output-finishline.com.json", "w")
-    product_sizes = await page.querySelectorAll(_finishline_product_class)
-    for size in product_sizes:
-        itemSize = await page.evaluate('(element) => element.dataset.size', size)
-        sizeClass =(str)( await page.evaluate('(element) => element.className', size))
+    # SIZES
+    sizes_query = "Array.from(document.querySelectorAll('"+_finishline_product_class+"')).map(item => ({className: item.className, size: item.dataset.size}));"
+    product_sizes_raw = await page.evaluate(sizes_query, force_expr=True)
+    product_sizes = []
+    for item in product_sizes_raw:
+        product_sizes.append(item)
+    for itemSize in product_sizes:
         data = {}
-        if sizeClass.find('disabled') < 0 :
-            data['size'] = itemSize
-            data['quantity'] = 3
-        else :
-            data['size'] = itemSize
+        if 'disabled' in itemSize['className'] :
+            data['size'] = itemSize['size']
             data['quantity'] = 0
+        else:
+            data['size'] = itemSize['size']
+            data['quantity'] = 3
         sizes.append(data)
     data_crawler["sizes"] = sizes
+
+    # WRITE TO FILE
+    f = open("output-finishline.com.json", "w")
     f.write(json.dumps(data_crawler))
     f.close()
 
