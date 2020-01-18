@@ -3,10 +3,8 @@ import json
 from pyppeteer import launch
 
 _adidas_url = 'https://www.adidas.com/us/ultraboost-19-shoes/G27511.html'
-_adidas_product_class = '.gl-custom-dropdown--no-max-height > select > option'
-_adidas_button_class = '.gl-custom-dropdown--no-max-height > button'
-
-
+_adidas_gender_class = '.gl-custom-dropdown__options span'
+_adidas_sizes_class = '.square-list ul li'
 async def main():
     browser = await launch({'headless': False})
     page = await browser.newPage()
@@ -25,19 +23,19 @@ async def main():
     sizes = []
     final_sizes = []
 
-    breadcrumb_query = "Array.from(document.querySelectorAll('.pdp_breadcrumb_container ol li span')).map(item => item.textContent);"
+    breadcrumb_query = "Array.from(document.querySelectorAll('"+_adidas_gender_class+"')).map(item => item.textContent);"
     breadcrumbs = await page.evaluate(breadcrumb_query, force_expr=True)
-    gender = breadcrumbs[3]
+    gender = breadcrumbs[0]
 
-    query = "Array.from(document.querySelectorAll('.square-list ul li')).map(item => item.title);"
+    query = "Array.from(document.querySelectorAll('"+_adidas_sizes_class+"')).map(item => item.title);"
     product_sizes = await page.evaluate(query, force_expr=True)
 
-    if(gender == 'Men'):
+    if('Men' in gender ):
         sizes = default_men_sizes
     else:
         sizes = default_women_sizes
 
-    data_crawler['Gender'] = gender
+    data_crawler['Gender'] = 'Men' if 'Men' in gender else 'Women' 
 
     f = open("output-adidas.com.json", "w")
 
