@@ -2,11 +2,11 @@ import asyncio
 import json
 from pyppeteer import launch
 
-_adidas_url = 'https://www.adidas.com/us/ultraboost-19-shoes/G27511.html'
+# _adidas_url = 'https://www.adidas.com/us/ultraboost-19-shoes/G27511.html'
 _adidas_gender_class = '.gl-custom-dropdown__options span'
 _adidas_sizes_class = '.square-list ul li'
-async def main():
-    browser = await launch({'headless': False})
+async def craw(_adidas_url):
+    browser = await launch({'headless': True})
     page = await browser.newPage()
     await page.setViewport({'width': 1600, 'height': 1300})
     await page.setUserAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64)\
@@ -39,5 +39,6 @@ async def main():
     f.close()
 
     await browser.close()
+    return data_crawler["sizes"]
 
-asyncio.get_event_loop().run_until_complete(main())
+# asyncio.get_event_loop().run_until_complete(main())

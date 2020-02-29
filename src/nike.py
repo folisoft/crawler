@@ -2,11 +2,11 @@ import asyncio
 import json
 from pyppeteer import launch
 
-_nike_url = 'https://www.nike.com/t/air-max-270-react-womens-shoe-6KXPPH/AT6174-200'
+# _nike_url = 'https://www.nike.com/t/air-max-270-react-womens-shoe-6KXPPH/AT6174-200'
 _nike_gender_class = 'h2[data-test="product-sub-title"]'
 _nike_sizes_class = '#buyTools fieldset div > div > input'
-async def main():
-    browser = await launch({'headless': False})
+async def craw(_nike_url):
+    browser = await launch({'headless': True})
     context = await browser.createIncognitoBrowserContext()
     page = await context.newPage()
     await page.setViewport({'width': 1600, 'height': 1300})
@@ -40,5 +40,4 @@ async def main():
     f.close()
 
     await browser.close()
-
-asyncio.get_event_loop().run_until_complete(main())
+    return data_crawler["sizes"]

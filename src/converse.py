@@ -2,12 +2,11 @@ import asyncio
 import json
 from pyppeteer import launch
 
-_converse_url = 'https://www.converse.com/shop/p/chuck-taylor-all-star-unisex-lowtopshoe/M7652.html?cgid=mens-best-sellers&dwvar_M7652_color=optical%20white&dwvar_M7652_size=065&styleNo=M7652&pdp=true'
+# _converse_url = 'https://www.converse.com/shop/p/chuck-taylor-all-star-unisex-lowtopshoe/M7652.html?cgid=mens-best-sellers&dwvar_M7652_color=optical%20white&dwvar_M7652_size=065&styleNo=M7652&pdp=true'
 _converse_products_class = '#variationDropdown-size option'
 
-
-async def main():
-    browser = await launch({'headless': False})
+async def craw(_converse_url):
+    browser = await launch({'headless': True})
     page = await browser.newPage()
     await page.setViewport({'width': 1600, 'height': 1300})
     await page.setUserAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64)\
@@ -54,5 +53,3 @@ async def main():
     f.close()
 
     await browser.close()
-
-asyncio.get_event_loop().run_until_complete(main())
