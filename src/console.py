@@ -1,6 +1,9 @@
 import os
 import pickle
 import json
+import asyncio
+import requests
+
 
 # Greeter is a terminal application that greets old friends warmly,
 #   and remembers new friends.
@@ -36,19 +39,22 @@ def show_agencies():
         print('>', name)
         
 def get_products():
-    f = open("input.json")
-    jsonInput = json.load(f)
-    for product in jsonInput['list']:
-        print('>', product['agence'])
+    response = requests.get("http://api.open-notify.org/astros.json")
+    print(response.status_code)
+    print(response.json())
+
+
+    # f = open("input.json")
+    # jsonInput = json.load(f)
+    # for product in jsonInput['list']:
+    #     print('>', product['agence'])
         
 def start_crawler():
     # This function loads names from a file, and puts them in the list 'names'.
     #  If the file doesn't exist, it creates an empty list.
     try:
-        file_object = open('names.pydata', 'rb')
-        names = pickle.load(file_object)
-        file_object.close()
-        return names
+        crawler = __import__('crawler')
+        crawler.start()
     except Exception as e:
         print(e)
         return []
