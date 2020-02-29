@@ -1,35 +1,55 @@
 import asyncio
+import json
 from pyppeteer import launch
 
-#   Crawler
-    # We crawl the product by url https://www.nike.com/w?q=AT6174-005
-    # And check the product on the url http://oco.vn/san-pham?q=AT6174-005
+_finishline_url = 'https://www.finishline.com/store/product/womens-adidas-nmd-r1-casual-shoes/prod3030000?styleId=FW5278&colorId=001'
 
-    # This is the list of SKU for testing:
-    # 13	AT6174-005	NIKE AIR MAX 270 REACT	Women	4,449,000	Stocking	
-    # 14	AT6174-100	NIKE AIR MAX 270 REACT	Women	4,199,000	Stocking	
-    # 15	AT6174-102	NIKE AIR MAX 270 REACT	Women	4,199,000	Stocking	
-    # 16	AT6174-700	NIKE AIR MAX 270 REACT	Women	4,199,000	Stocking
+_finishline_product_class = '#productSizes .block-grid--sizes div button'
+_breadcrumbs_class = '.breadcrumbs li a span'
 
-_nike_url = 'https://www.nike.com/w?q=AT6174-005'
-_nike_product_class = '.product-card__body'
-_nike_product_price = '.original-price'
+_shoes_name_class = '#title'
 
 
 async def main():
     browser = await launch({'headless': False})
     page = await browser.newPage()
+    await page.setViewport({'width': 1600, 'height': 1300})
+    await page.setUserAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64)\
+                                AppleWebKit/537.36 (KHTML, like Gecko) \
+                                Chrome/66.0.3359.181 Safari/537.36")
+    await page.goto(_finishline_url, {'timeout': 0})
 
-    await page.goto(_nike_url)
-    
-    # document.querySelectorAll('.product-card__body')[0]
-    product_el = await page.querySelector(_nike_product_class)
-    await page.click(_nike_product_class)
+    data_crawler = {}
+    sizes = []
 
-    # document.querySelectorAll('.original-price')[0].innerText
-    product_el_price = await page.querySelector(_nike_product_price)
-    product_price = await page.evaluate('(element) => element.textContent', product_el_price)
-    
+    # GENDER
+    breadcrumb_query = "Array.from(document.querySelectorAll('"+_breadcrumbs_class+"')).map(item => item.textContent);"
+    breadcrumbs = await page.evaluate(breadcrumb_query, force_expr=True)
+    gender_object = breadcrumbs[1]
+    data_crawler["gender"] = gender_object.strip()
+
+    # SIZES
+    sizes_query = "Array.from(document.querySelectorAll('"+_finishline_product_class+"')).map(item => ({className: item.className, size: item.dataset.size}));"
+    product_sizes_raw = await page.evaluate(sizes_query, force_expr=True)
+    product_sizes = []
+    for item in product_sizes_raw:
+        product_sizes.append(item)
+    for itemSize in product_sizes:
+        data = {}
+        if 'disabled' in itemSize['className'] :
+            data['size'] = itemSize['size']
+            data['quantity'] = 0
+        else:
+            data['size'] = itemSize['size']
+            data['quantity'] = 3
+        sizes.append(data)
+    data_crawler["sizes"] = sizes
+
+    # WRITE TO FILE
+    f = open("output-finishline.com.json", "w")
+    f.write(json.dumps(data_crawler))
+    f.close()
+
     await browser.close()
 
 asyncio.get_event_loop().run_until_complete(main())

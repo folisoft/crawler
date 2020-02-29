@@ -1,0 +1,32 @@
+{
+  "Gender": "Men",
+  "sizes": [
+    { "size": "4", "quantity": 0 },
+    { "size": "4.5", "quantity": 0 },
+    { "size": "5", "quantity": 0 },
+    { "size": "5.5", "quantity": 0 },
+    { "size": "6", "quantity": 0 },
+    { "size": "6.5", "quantity": 0 },
+    { "size": "7", "quantity": 3 },
+    { "size": "7.5", "quantity": 3 },
+    { "size": "8", "quantity": 3 },
+    { "size": "8.5", "quantity": 3 },
+    { "size": "9", "quantity": 3 },
+    { "size": "9.5", "quantity": 3 },
+    { "size": "10", "quantity": 3 },
+    { "size": "10.5", "quantity": 3 },
+    { "size": "11", "quantity": 3 },
+    { "size": "11.5", "quantity": 3 },
+    { "size": "12", "quantity": 3 },
+    { "size": "12.5", "quantity": 3 },
+    { "size": "13", "quantity": 3 },
+    { "size": "13.5", "quantity": 0 },
+    { "size": "14", "quantity": 0 },
+    { "size": "14.5", "quantity": 0 },
+    { "size": "15", "quantity": 0 },
+    { "size": "16", "quantity": 0 },
+    { "size": "17", "quantity": 0 },
+    { "size": "18", "quantity": 0 },
+    { "size": "19", "quantity": 0 }
+  ]
+}
