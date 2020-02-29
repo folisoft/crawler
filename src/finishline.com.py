@@ -1,22 +1,12 @@
 import asyncio
 import json
-from pyppeteer import launch
-
-_finishline_url = 'https://www.finishline.com/store/product/womens-adidas-nmd-r1-casual-shoes/prod3030000?styleId=FW5278&colorId=001'
 
 _finishline_product_class = '#productSizes .block-grid--sizes div button'
 _breadcrumbs_class = '.breadcrumbs li a span'
 
 _shoes_name_class = '#title'
 
-
-async def main():
-    browser = await launch({'headless': False})
-    page = await browser.newPage()
-    await page.setViewport({'width': 1600, 'height': 1300})
-    await page.setUserAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64)\
-                                AppleWebKit/537.36 (KHTML, like Gecko) \
-                                Chrome/66.0.3359.181 Safari/537.36")
+async def craw(_finishline_url, page):
     await page.goto(_finishline_url, {'timeout': 0})
 
     data_crawler = {}
@@ -45,11 +35,4 @@ async def main():
         sizes.append(data)
     data_crawler["sizes"] = sizes
 
-    # WRITE TO FILE
-    f = open("output-finishline.com.json", "w")
-    f.write(json.dumps(data_crawler))
-    f.close()
-
-    await browser.close()
-
-asyncio.get_event_loop().run_until_complete(main())
+    return data_crawler["sizes"]

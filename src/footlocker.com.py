@@ -16,7 +16,7 @@ _nike_product_class = '.product-card__body'
 _nike_product_price = '.original-price'
 
 
-async def main():
+async def craw(_adidas_url, page):
     browser = await launch({'headless': False})
     page = await browser.newPage()
 

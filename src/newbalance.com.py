@@ -1,6 +1,5 @@
 import asyncio
 import json
-from pyppeteer import launch
 import pydash
 import json
 
@@ -18,20 +17,8 @@ _size_item = {
     "quantity": 0
 }
 
-_page_name = 'newbalance.com'
-_detail_url = 'https://www.newbalance.com/pd/fresh-foam-roav-city-grit/MROAVV1-28556-M.html?dwvar_MROAVV1-28556-M_color=Natural%20Indigo_with_Light%20Slate#color=Stone%20Blue_with_Neo%20Crimson'
-
-
-async def main():
-    # pyppeteer
-    browser = await launch({'headless': False})
-    page = await browser.newPage()
-    await page.setUserAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64)\
-                                AppleWebKit/537.36 (KHTML, like Gecko) \
-                                Chrome/66.0.3359.181 Safari/537.36")
+async def craw(_detail_url, page):
     await page.goto(_detail_url, {'timeout': 0 })
-    # await page.goto(_detail_url, {'waitUntil': 'domcontentloaded' })
-    
 
     # product name
     class_name = '.product-name'
@@ -63,12 +50,5 @@ async def main():
             size_item['quantity'] = 0
 
         _output["sizes"].append(size_item)
-    
-    # file json
-    f = open(_page_name+'.json', "w")
-    f.write(json.dumps(_output))
-    f.close()
 
-    await browser.close()
-
-asyncio.get_event_loop().run_until_complete(main())
+    return _output["sizes"]
