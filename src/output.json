@@ -11,12 +11,16 @@
   ],
   "list": [
     {
-      "name": "ULTRABOOST 19 SHOES",
-      "detail_url": "https://www.adidas.com/us/ultraboost-19-shoes/G27511.html",
+      "name": "Women's adidas NMD R1 Casual Shoes",
+      "detail_url": "https://www.nike.com/t/air-max-270-react-womens-shoe-6bhhrf/AT6174-102",
       "img_url": "https://c.static-nike.com/a/images/t_PDP_1280_v1/f_auto,b_rgb:f5f5f5/013f9fd7-dc43-435e-8595-eb1cbe3a211d/air-vapormax-360-mens-shoe-30Xj2m.jpg",
-      "gender": "Men",
-      "agence": "adidas",
+      "gender": "Women",
+      "agence": "nike",
       "sizes": [
+        { "size": "5", "quantity": 3 },
+        { "size": "5.5", "quantity": 3 },
+        { "size": "6", "quantity": 3 },
+        { "size": "6.5", "quantity": 3 },
         { "size": "7", "quantity": 3 },
         { "size": "7.5", "quantity": 3 },
         { "size": "8", "quantity": 3 },
@@ -27,18 +31,20 @@
         { "size": "10.5", "quantity": 3 },
         { "size": "11", "quantity": 3 },
         { "size": "11.5", "quantity": 3 },
-        { "size": "12", "quantity": 3 },
-        { "size": "12.5", "quantity": 3 },
-        { "size": "13", "quantity": 3 }
+        { "size": "12", "quantity": 3 }
       ]
     },
     {
       "name": "Women's adidas NMD R1 Casual Shoes",
-      "detail_url": "https://www.nike.com/t/air-vapormax-360-mens-shoe-30Xj2m/CK2718-003",
+      "detail_url": "https://www.nike.com/t/react-element-55-womens-shoe-t0BNJn/BQ2728-008",
       "img_url": "https://c.static-nike.com/a/images/t_PDP_1280_v1/f_auto,b_rgb:f5f5f5/013f9fd7-dc43-435e-8595-eb1cbe3a211d/air-vapormax-360-mens-shoe-30Xj2m.jpg",
       "gender": "Women",
       "agence": "nike",
       "sizes": [
+        { "size": "5", "quantity": 3 },
+        { "size": "5.5", "quantity": 3 },
+        { "size": "6", "quantity": 3 },
+        { "size": "6.5", "quantity": 3 },
         { "size": "7", "quantity": 3 },
         { "size": "7.5", "quantity": 3 },
         { "size": "8", "quantity": 3 },
@@ -48,16 +54,9 @@
         { "size": "10", "quantity": 3 },
         { "size": "10.5", "quantity": 3 },
         { "size": "11", "quantity": 3 },
+        { "size": "11.5", "quantity": 3 },
         { "size": "12", "quantity": 3 }
       ]
-    },
-    {
-      "name": "Chuck Taylor All Star",
-      "detail_url": "https://www.converse.com/shop/p/chuck-taylor-all-star-unisex-lowtopshoe/M7652.html?cgid=mens-best-sellers&dwvar_M7652_color=optical%20white&dwvar_M7652_size=065&styleNo=M7652&pdp=true",
-      "img_url": "https://c.static-nike.com/a/images/t_PDP_1280_v1/f_auto,b_rgb:f5f5f5/013f9fd7-dc43-435e-8595-eb1cbe3a211d/air-vapormax-360-mens-shoe-30Xj2m.jpg",
-      "gender": "Men",
-      "agence": "converse",
-      "sizes": [{ "size": "5.5", "quantity": 0 }]
     }
   ]
 }
