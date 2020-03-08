@@ -29,42 +29,32 @@ async function crawler() {
     let products = get_products.data;
     for (let index = 0; index < products.list.length; index++) {
         const item = products.list[index];
-        let sizes = get_sizes(item);
+        let sizes = [];
+        switch (item.agence) {
+            case 'nike':
+                sizes = await nike(item.detail_url, page);
+                break;
+            case 'adidas':
+                sizes = await adidas(item.detail_url, page);
+                break;
+            case 'converse':
+                sizes = await converse(item.detail_url, page);
+                break;
+            case 'finishline':
+                sizes = await finishline(item.detail_url, page);
+                break;
+            case 'newbalance': //Need to update
+                sizes = await newbalance(item.detail_url, page);
+                break;
+            default:
+                break;
+        }
         item['sizes'] = sizes;
     }
     // await fs.writeFileSync('./output.json', JSON.stringify(products)); //Test OUPUT FILE
     let res = await axios.post('https://oco.vn/api/update-quantity', JSON.stringify(products));
     await browser.close();
     return res;
-}
-
-async function get_sizes(item) {
-    let sizes = [];
-    switch (item.agence) {
-        case 'nike':
-            sizes = nike(item.detail_url, page);
-            break;
-        case 'adidas':
-            sizes = adidas(item.detail_url, page);
-            break;
-        case 'converse':
-            sizes = converse(item.detail_url, page);
-            break;
-        case 'finishline':
-            sizes = finishline(item.detail_url, page);
-            break;
-        case 'newbalance': //Need to update
-            sizes = newbalance(item.detail_url, page);
-            break;
-        default:
-            break;
-    }
-
-    return await Promise.all(sizes);
-}
-
-async function delete_cookies(delcooky) {
-   return await Promise.all(page.deleteCookie(delcooky))
 }
 
 async function nike(_nike_url, page) {
@@ -87,7 +77,7 @@ async function nike(_nike_url, page) {
     for (let index = 0; index < cookies.length; index++) {
         const cooky = cookies[index];
         if (cooky.value === 'VN')
-            delete_cookies(delcooky)
+            await page.deleteCookie(delcooky)
     }
     await page.setCookie(cooky)
     await page.cookies('.nike.com')
