@@ -1,0 +1,49 @@
+{
+  "total_items": 2,
+  "list": [
+    {
+      "product_id": "17",
+      "detail_url": "https://www.nike.com/t/air-max-270-react-womens-shoe-6bhhrf/AT6174-102",
+      "agence": "nike",
+      "sizes": [
+        { "size": "5", "quantity": 3 },
+        { "size": "5.5", "quantity": 3 },
+        { "size": "6", "quantity": 3 },
+        { "size": "6.5", "quantity": 3 },
+        { "size": "7", "quantity": 3 },
+        { "size": "7.5", "quantity": 3 },
+        { "size": "8", "quantity": 3 },
+        { "size": "8.5", "quantity": 3 },
+        { "size": "9", "quantity": 3 },
+        { "size": "9.5", "quantity": 3 },
+        { "size": "10", "quantity": 3 },
+        { "size": "10.5", "quantity": 0 },
+        { "size": "11", "quantity": 3 },
+        { "size": "11.5", "quantity": 0 },
+        { "size": "12", "quantity": 3 }
+      ]
+    },
+    {
+      "product_id": "20",
+      "detail_url": "https://www.nike.com/t/react-element-55-womens-shoe-t0BNJn/BQ2728-008",
+      "agence": "nike",
+      "sizes": [
+        { "size": "5", "quantity": 3 },
+        { "size": "5.5", "quantity": 3 },
+        { "size": "6", "quantity": 3 },
+        { "size": "6.5", "quantity": 3 },
+        { "size": "7", "quantity": 3 },
+        { "size": "7.5", "quantity": 3 },
+        { "size": "8", "quantity": 3 },
+        { "size": "8.5", "quantity": 0 },
+        { "size": "9", "quantity": 0 },
+        { "size": "9.5", "quantity": 0 },
+        { "size": "10", "quantity": 0 },
+        { "size": "10.5", "quantity": 0 },
+        { "size": "11", "quantity": 0 },
+        { "size": "11.5", "quantity": 3 },
+        { "size": "12", "quantity": 0 }
+      ]
+    }
+  ]
+}

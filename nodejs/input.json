@@ -1,0 +1,15 @@
+{
+  "total_items": 2,
+  "list": [
+    {
+      "product_id": "17",
+      "detail_url": "https://www.nike.com/t/air-max-270-react-womens-shoe-6bhhrf/AT6174-102",
+      "agence": "nike"
+    },
+    {
+      "product_id": "20",
+      "detail_url": "https://www.nike.com/t/react-element-55-womens-shoe-t0BNJn/BQ2728-008",
+      "agence": "nike"
+    }
+  ]
+}
